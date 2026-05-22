@@ -145,3 +145,27 @@
   border-left-width: 2px;
   margin: 0.5em 0;
 }
+
+/* ============================================================
+ * Sidebar height containment
+ * ============================================================
+ *
+ * Long navigation trees (e.g. the Pantheons > Twelve > per-M > per-M-subfolder
+ * hierarchy on the GM site) can grow taller than the viewport. By default
+ * mkdocs-material lets the sidebar grow with its inner nav, which on short
+ * pages pushes the bottom of the sidebar past the viewport and behind the
+ * footer / prev-next controls.
+ *
+ * Pin the sidebar to a fixed height equal to the viewport-minus-header and
+ * let the inner scroll wrapper handle overflow. The sidebar is then always
+ * fully contained between header and footer, no matter how long the nav grows.
+ */
+.md-sidebar {
+  height: calc(100vh - var(--md-header-height, 4.5rem));
+  top: var(--md-header-height, 4.5rem);
+}
+
+.md-sidebar__scrollwrap {
+  max-height: 100%;
+  overflow-y: auto;
+}
