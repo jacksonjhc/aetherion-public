@@ -1,0 +1,147 @@
+/* Aetherion stat block styling
+ * Used on both the public site (deep purple) and the GM site (deep orange).
+ * All colors derive from mkdocs-material CSS variables so the block adopts
+ * whichever palette it's rendered in.
+ *
+ * Markdown usage (with md_in_html enabled, which both configs have):
+ *
+ *   <div class="statblock" markdown>
+ *
+ *   ### Creature Name
+ *   **Creature N** · _Uncommon · Alignment · Size · Ancestry · Type_
+ *
+ *   ---
+ *
+ *   **Perception** +N _(notes)_
+ *   **Languages** ...
+ *   **Skills** ...
+ *
+ *   | Str | Dex | Con | Int | Wis | Cha |
+ *   |:---:|:---:|:---:|:---:|:---:|:---:|
+ *   | +N  | +N  | +N  | +N  | +N  | +N  |
+ *
+ *   **Items** ...
+ *
+ *   ---
+ *
+ *   **AC** N · **Fort** +N · **Ref** +N · **Will** +N
+ *   **HP** N
+ *
+ *   ---
+ *
+ *   **Speed** N feet
+ *
+ *   **Melee** [1A] weapon +N (traits) · **Damage** XdY damage-type
+ *
+ *   **Ability Name** [1A] (traits)
+ *   :   Full ability description.
+ *
+ *   </div>
+ *
+ * Action-cost convention: use bracketed [1A], [2A], [3A], [R] (reaction),
+ * [F] (free action) inline. Cheap, accessible, and renders identically
+ * across all themes.
+ */
+
+.statblock {
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-left: 4px solid var(--md-primary-fg-color);
+  border-radius: 4px;
+  padding: 1em 1.4em;
+  margin: 1.5em 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* Header: name on its own line, prominent, in primary color */
+.statblock h1,
+.statblock h2,
+.statblock h3,
+.statblock h4 {
+  color: var(--md-primary-fg-color);
+  margin: 0 0 0.25em 0;
+  padding: 0;
+  border: none;
+  font-size: 1.25em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* Section dividers — subtler than full HR, more compact spacing */
+.statblock hr {
+  border: none;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  margin: 0.6em 0;
+}
+
+/* Each paragraph in the statblock should be compact */
+.statblock p {
+  margin: 0.3em 0;
+}
+
+/* Inline ability score table: centered, compact, no surrounding margin */
+.statblock table {
+  display: inline-table;
+  margin: 0.4em 0;
+  border-collapse: collapse;
+  background: transparent;
+  font-size: 0.95em;
+}
+
+.statblock table th,
+.statblock table td {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  padding: 0.25em 0.7em;
+  text-align: center;
+  background: transparent;
+}
+
+.statblock table th {
+  font-weight: 700;
+  color: var(--md-primary-fg-color);
+  background: var(--md-code-hl-comment-color, transparent);
+}
+
+/* Action-cost markers — bracketed [1A], [R], etc. Render in mono so they
+ * stand out from surrounding prose and align visually across blocks. */
+.statblock {
+  /* Bracket markers will pick up monospace from the default code styling
+   * if we wrap them. For now, plain text with brackets is sufficient and
+   * doesn't require special markdown. */
+}
+
+/* Definition-list-style ability bodies (markdown's : indent) */
+.statblock dl,
+.statblock dd {
+  margin: 0.2em 0 0.4em 0;
+}
+
+.statblock dt {
+  font-weight: 700;
+}
+
+.statblock dd {
+  margin-left: 1.5em;
+  padding-left: 0.5em;
+  border-left: 2px solid var(--md-default-fg-color--lightest);
+}
+
+/* Tighter spacing for ability descriptions when each is a paragraph */
+.statblock p + p {
+  margin-top: 0.25em;
+}
+
+/* Strong (bold) labels in primary color — for "AC", "HP", "Perception", etc.
+ * Subtle; just enough to draw the eye to section labels. */
+.statblock strong {
+  color: var(--md-default-fg-color);
+}
+
+/* When a statblock is inside a quote / admonition, dampen the outer border
+ * so the visual doesn't double-up. */
+.md-typeset blockquote .statblock,
+.md-typeset .admonition .statblock {
+  border-left-width: 2px;
+  margin: 0.5em 0;
+}
